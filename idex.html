@@ -1,0 +1,94 @@
+<!doctype html>
+<html lang="pt-BR">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Dashboard | PMP</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+        href="https://fonts.googleapis.com/css2?family=Nunito+Sans:opsz,wght@6..12,300;6..12,400;6..12,500;6..12,600;6..12,700&display=swap"
+        rel="stylesheet" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" />
+    <link rel="stylesheet" href="style.css" />
+    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" />
+</head>
+
+<body>
+    <div class="dashboard-container">
+        <!-- Menu Lateral Fixo -->
+        <aside class="sidebar">
+            <div class="sidebar-top">
+                <div class="logo-area">
+                    <img src="https://placehold.co/120x40/2d5a4b/ffffff?text=AgroTech" alt="AgroTech Logo" />
+                </div>
+                <nav class="sidebar-nav">
+                    <button class="nav-btn active" data-view="users">
+                        <i class="fas fa-users"></i>
+                        <span>Usuários</span>
+                    </button>
+                    <button class="nav-btn" data-view="farms">
+                        <i class="fas fa-tractor"></i>
+                        <span>Fazendas</span>
+                    </button>
+                </nav>
+            </div>
+            <div class="sidebar-bottom">
+                <div class="developer-logo">
+                    <img src="https://placehold.co/80x20/1e2f2a/ffffff?text=DevSolutions" alt="Developer Logo" />
+                </div>
+            </div>
+        </aside>
+
+        <!-- Conteúdo Principal -->
+        <main class="main-content">
+            <!-- Barra Superior -->
+            <header class="top-bar">
+                <div class="current-screen">
+                    <h1 id="screen-title">Usuários</h1>
+                </div>
+                <div class="user-info">
+                    <span class="user-name" id="userName">João Silva</span>
+                    <div class="user-avatar">
+                        <i class="fas fa-user-circle"></i>
+                    </div>
+                </div>
+            </header>
+
+            <!-- Área de Conteúdo -->
+            <div class="content-area">
+                <!-- Loading State -->
+                <div class="loading-spinner" id="loadingSpinner">
+                    <i class="fas fa-spinner fa-spin"></i>
+                </div>
+
+                <!-- Lista de Itens -->
+                <div class="items-list" id="itemsList"></div>
+
+                <!-- Paginação -->
+                <div class="pagination" id="pagination"></div>
+            </div>
+        </main>
+    </div>
+
+    <!-- Modal de Detalhes -->
+    <div class="modal" id="detailsModal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h2 id="modalTitle">Detalhes</h2>
+                <button class="close-modal" onclick="closeModal()">
+                    <i class="fas fa-times"></i>
+                </button>
+            </div>
+            <div class="modal-body" id="modalBody">
+                <!-- Conteúdo dinâmico -->
+            </div>
+        </div>
+    </div>
+
+    <script src="script.js"></script>
+    <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
+</body>
+
+</html>
