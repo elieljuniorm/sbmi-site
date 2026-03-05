@@ -141,16 +141,10 @@ document.addEventListener('DOMContentLoaded', function() {
                 // Salvar credenciais se solicitado
                 saveCredentials(email, password);
 
-                // Simular redirecionamento para rota base
-                showError('Login realizado com sucesso! Redirecionando...');
-                errorMessage.style.background = 'rgba(40, 167, 69, 0.2)';
-                errorMessage.style.border = '1px solid rgba(40, 167, 69, 0.5)';
-                errorMessage.style.color = '#ffffff';
-
                 // Simular redirecionamento após 2 segundos
                 setTimeout(() => {
                     window.location.href = '/'; // Rota base após login
-                }, 2000);
+                }, 1000);
             } else {
                 showError('E-mail ou senha inválidos.');
                 loginButton.disabled = false;
