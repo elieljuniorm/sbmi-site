@@ -1,0 +1,336 @@
+body {
+    min-height: 100vh;
+    background: url('assets/tela-de-login.png');
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+    background-attachment: fixed;
+    display: flex;
+    align-items: center;
+    justify-content: flex-end;
+    position: relative;
+}
+
+.container {
+    width: 100%;
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+}
+
+.login-container {
+    display: flex;
+    justify-content: flex-end;
+    align-items: center;
+    min-height: calc(95vh - 60px);
+    padding: 2rem 6rem;
+}
+
+.login-box {
+    padding: 2.5rem;
+    width: 100%;
+    max-width: 460px;
+    animation: slideIn 0.5s ease-out;
+}
+
+@keyframes slideIn {
+    from {
+        opacity: 0;
+        transform: translateX(30px);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateX(0);
+    }
+}
+
+/* Container da logo */
+.logo-container {
+    text-align: center;
+    margin-bottom: 2rem;
+    padding-bottom: 1rem;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.3);
+}
+
+/* Estilo da logo */
+.company-logo {
+    width: 90%;
+    height: auto;
+    object-fit: contain;
+}
+
+.input-group {
+    margin-bottom: 1.5rem;
+}
+
+.input-group label {
+    display: block;
+    margin-bottom: 0.5rem;
+    color: #ffffff;
+    font-weight: 500;
+    font-size: 0.95rem;
+    text-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);
+}
+
+.input-group input {
+    width: 100%;
+    padding: 0.75rem;
+    border: 2px solid rgba(255, 255, 255, 0.5);
+    border-radius: 50px;
+    font-size: 1rem;
+    transition: all 0.3s ease;
+    background: rgba(255, 255, 255, 0.15);
+    color: #ffffff;
+    backdrop-filter: blur(5px);
+}
+
+.input-group input::placeholder {
+    color: rgba(255, 255, 255, 0.7);
+}
+
+.input-group input:focus {
+    outline: none;
+    border-color: #ffffff;
+    background: rgba(255, 255, 255, 0.25);
+    box-shadow: 0 0 0 3px rgba(255, 255, 255, 0.2);
+}
+
+.input-group input.error {
+    border-color: #ff6b6b;
+}
+
+.password-requirements {
+    font-size: 0.75rem;
+    color: rgba(255, 255, 255, 0.8);
+    margin-top: 0.5rem;
+    line-height: 1.4;
+}
+
+.checkbox-group {
+    margin-bottom: 1.5rem;
+}
+
+.checkbox-container {
+    display: flex;
+    align-items: center;
+    cursor: pointer;
+    font-size: 0.95rem;
+    padding-left: 1rem;
+    color: #ffffff;
+    user-select: none;
+    text-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);
+}
+
+.checkbox-container input {
+    position: absolute;
+    opacity: 0;
+    cursor: pointer;
+    height: 0;
+    width: 0;
+}
+
+.checkmark {
+    display: inline-block;
+    width: 18px;
+    height: 18px;
+    background-color: rgba(255, 255, 255, 0.2);
+    border: 2px solid #ffffff;
+    border-radius: 3px;
+    margin-right: 8px;
+    position: relative;
+    backdrop-filter: blur(5px);
+}
+
+.checkbox-container input:checked~.checkmark::after {
+    content: '';
+    position: absolute;
+    left: 4px;
+    top: 1px;
+    width: 5px;
+    height: 9px;
+    border: solid #ffffff;
+    border-width: 0 2px 2px 0;
+    transform: rotate(45deg);
+}
+
+button {
+    width: 100%;
+    padding: 0.875rem;
+    background: #034965;
+    color: white;
+    border: none;
+    border-radius: 20px;
+    font-size: 1rem;
+    font-weight: 500;
+    text-transform: uppercase;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.2);
+}
+
+button:hover {
+    background: #02344a;
+}
+
+button:active {
+    transform: translateY(1px);
+}
+
+button:disabled {
+    background: rgba(3, 73, 101, 0.5);
+    cursor: not-allowed;
+}
+
+.error-message {
+    margin-top: 1rem;
+    padding: 0.75rem;
+    background: rgba(255, 107, 107, 0.2);
+    border: 1px solid rgba(255, 107, 107, 0.5);
+    border-radius: 4px;
+    color: #ffffff;
+    font-size: 0.9rem;
+    display: none;
+    backdrop-filter: blur(5px);
+}
+
+.error-message.show {
+    display: block;
+}
+
+.footer {
+    background: transparent;
+    border-top: 1px solid rgba(255, 255, 255, 0.2);
+}
+
+.footer-content {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin: 0 auto;
+    color: white;
+    padding: 10px 2rem;
+    flex-direction: row-reverse;
+}
+
+.footer-links a {
+    color: white;
+    text-decoration: none;
+    font-size: 0.9rem;
+    transition: opacity 0.3s ease;
+    text-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);
+}
+
+.footer-links a:hover {
+    opacity: 0.8;
+    text-decoration: underline;
+}
+
+.footer-links .separator {
+    margin: 0 0.5rem;
+    color: white;
+    opacity: 0.5;
+}
+
+/* Grupo de senha com ícone */
+.password-group {
+    position: relative;
+}
+
+.password-wrapper {
+    position: relative;
+    display: flex;
+    align-items: center;
+}
+
+.password-wrapper input {
+    padding-right: 45px;
+    /* Espaço para o botão do olho */
+}
+
+.toggle-password {
+    position: absolute;
+    right: 12px;
+    background: none;
+    border: none;
+    padding: 8px;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: rgba(255, 255, 255, 0.7);
+    transition: color 0.3s ease;
+    width: auto;
+    border-radius: 50%;
+    box-shadow: none;
+    text-transform: none;
+}
+
+.toggle-password:hover {
+    color: #ffffff;
+    background: rgba(255, 255, 255, 0.1);
+    transform: none;
+}
+
+.toggle-password:active {
+    transform: scale(0.95);
+}
+
+.toggle-password:focus {
+    outline: none;
+    color: #ffffff;
+}
+
+.eye-icon {
+    display: block;
+    pointer-events: none;
+}
+
+/* Ajuste responsivo */
+@media (max-width: 480px) {
+    .toggle-password {
+        right: 8px;
+        padding: 6px;
+    }
+
+    .password-wrapper input {
+        padding-right: 40px;
+    }
+}
+
+/* Responsividade */
+@media (max-width: 768px) {
+    .login-container {
+        justify-content: center;
+        padding: 1rem;
+    }
+
+    .login-box {
+        padding: 1.5rem;
+    }
+
+    .footer-content {
+        flex-direction: column;
+        gap: 1rem;
+        text-align: center;
+    }
+}
+
+@media (max-width: 480px) {
+    .company-logo {
+        width: 90%;
+        height: auto;
+    }
+
+    .footer-links {
+        display: flex;
+        flex-wrap: wrap;
+        justify-content: center;
+        gap: 0.5rem;
+    }
+
+    .footer-links .separator {
+        display: none;
+    }
+}

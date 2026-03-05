@@ -1,0 +1,100 @@
+<!doctype html>
+<html lang="pt-BR">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>PMP - Pequena e Média Propriedade</title>
+    <link rel="shortcut icon" href="assets/favicon.ico" type="image/x-icon" />
+    <link rel="stylesheet" href="login.css" />
+    <link rel="stylesheet" href="style.css" />
+</head>
+
+<body>
+    <div class="container">
+        <div class="login-container">
+            <div class="login-box">
+                <!-- Logo da empresa adicionada aqui -->
+                <div class="logo-container">
+                    <img src="assets/pmp-verde-azul-branca.png" alt="Logo da Empresa" class="company-logo" />
+                </div>
+
+                <form id="loginForm">
+                    <div class="input-group">
+                        <label for="email">E-mail</label>
+                        <input type="email" id="email" name="email" required placeholder="seu@email.com" />
+                    </div>
+
+                    <div class="input-group password-group">
+                        <label for="password">Senha</label>
+                        <div class="password-wrapper">
+                            <input type="password" id="password" name="password" required placeholder="••••••••" />
+                            <button type="button" class="toggle-password" aria-label="Mostrar senha">
+                                <svg class="eye-icon eye-open" width="20" height="20" viewBox="0 0 24 24" fill="none"
+                                    xmlns="http://www.w3.org/2000/svg">
+                                    <path d="M1 12C1 12 5 4 12 4C19 4 23 12 23 12C23 12 19 20 12 20C5 20 1 12 1 12Z"
+                                        stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                                        stroke-linejoin="round" />
+                                    <circle cx="12" cy="12" r="3" stroke="currentColor" stroke-width="2"
+                                        stroke-linecap="round" stroke-linejoin="round" />
+                                </svg>
+                                <svg class="eye-icon eye-closed" width="20" height="20" viewBox="0 0 24 24" fill="none"
+                                    xmlns="http://www.w3.org/2000/svg" style="display: none;">
+                                    <path d="M2 2L22 22" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                                        stroke-linejoin="round" />
+                                    <path
+                                        d="M6.71277 6.7226C3.66479 8.79527 2 12 2 12C2 12 5.63636 19 12 19C14.0503 19 15.8174 18.2734 17.2711 17.2764"
+                                        stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                                        stroke-linejoin="round" />
+                                    <path
+                                        d="M10.0747 10.0891C9.42283 10.7521 9 11.6968 9 12.75C9 14.8211 10.6789 16.5 12.75 16.5C13.8032 16.5 14.7479 16.0772 15.4109 15.4253"
+                                        stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                                        stroke-linejoin="round" />
+                                    <path
+                                        d="M14.2031 8.20935C15.2415 8.79245 16.1254 9.62821 16.7617 10.6225C17.1799 11.2821 17.5 12.0 17.5 12.75C17.5 13.1655 17.4456 13.5692 17.3437 13.9547"
+                                        stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                                        stroke-linejoin="round" />
+                                    <path d="M22 12C22 12 20.3636 15.2047 17.3156 17.2774" stroke="currentColor"
+                                        stroke-width="2" stroke-linecap="round" stroke-linejoin="round" />
+                                    <path
+                                        d="M11.3617 7.39325C11.7361 7.32775 12.1242 7.29297 12.525 7.29297C15.9599 7.29297 18.7479 10.018 18.9906 12.7486"
+                                        stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                                        stroke-linejoin="round" />
+                                </svg>
+                            </button>
+                        </div>
+                    </div>
+
+                    <div class="checkbox-group">
+                        <label class="checkbox-container">
+                            <input type="checkbox" id="saveCredentials" />
+                            <span class="checkmark"></span>
+                            Salvar credenciais
+                        </label>
+                    </div>
+
+                    <button type="submit" id="loginButton">Entrar</button>
+
+                    <div id="errorMessage" class="error-message"></div>
+                </form>
+            </div>
+        </div>
+
+        <footer class="footer">
+            <div class="footer-content">
+                <div class="footer-links">
+                    <a href="#">Termos de Uso</a>
+                    <span class="separator">|</span>
+                    <a href="#">Política de Privacidade</a>
+                </div>
+                <div>
+                    <img src="assets/sbmi-branco.png" alt="SBMI" style="width: 10rem" />
+                </div>
+            </div>
+        </footer>
+    </div>
+
+    <script src="login.js"></script>
+</body>
+
+</html>
