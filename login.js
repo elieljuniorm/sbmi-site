@@ -77,8 +77,7 @@ document.addEventListener('DOMContentLoaded', function() {
 
         // Credenciais válidas para teste
         const validCredentials = [
-            { email: 'admin@sistema.com', password: 'Admin@123' },
-            { email: 'user@sistema.com', password: 'User@123' }
+            { email: 'admin@teste.com', password: 'Senha@123' }
         ];
 
         return validCredentials.some(cred => 
@@ -88,10 +87,8 @@ document.addEventListener('DOMContentLoaded', function() {
 
     function saveCredentials(email, password) {
         if (saveCredentialsCheckbox.checked) {
-            // Nota: Em um ambiente real, nunca armazene senhas em plain text no localStorage
-            // Isso é apenas para demonstração. Em produção, use HttpOnly cookies ou tokens
             localStorage.setItem('savedEmail', email);
-            localStorage.setItem('savedPassword', btoa(password)); // Codificação básica, não segura
+            localStorage.setItem('savedPassword', btoa(password));
             localStorage.setItem('saveCredentials', 'true');
         } else {
             localStorage.removeItem('savedEmail');
@@ -152,7 +149,7 @@ document.addEventListener('DOMContentLoaded', function() {
 
                 // Simular redirecionamento após 2 segundos
                 setTimeout(() => {
-                    window.location.href = '/dashboard'; // Rota base após login
+                    window.location.href = '/'; // Rota base após login
                 }, 2000);
             } else {
                 showError('E-mail ou senha inválidos.');
