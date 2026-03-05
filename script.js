@@ -171,7 +171,6 @@ function renderItems() {
         header.innerHTML = `
             <span>NOME</span>
             <span>EMAIL</span>
-            <span>STATUS</span>
         `;
     } else {
         header.innerHTML = `
@@ -196,13 +195,9 @@ function createUserCard(user) {
     card.className = 'item-card';
     card.onclick = () => openUserModal(user);
 
-    const statusClass = user.Active === 1 ? 'status-active' : 'status-inactive';
-    const statusText = user.Active === 1 ? 'Ativo' : 'Inativo';
-
     card.innerHTML = `
         <h3>${user.Name} ${user.Surname}</h3>
         <div class="item-subtitle">${user.Email}</div>
-        <div class="item-status"><span class="${statusClass}">${statusText}</span></div>
     `;
 
     return card;
@@ -291,14 +286,10 @@ async function openUserModal(user) {
 
     modalTitle.textContent = 'Detalhes do Usuário';
 
-    const typeName = user.Type === 1 ? 'Proprietário' : 'Administrador';
-    const statusName = user.Active === 1 ? 'Ativo' : 'Inativo';
-    const statusClass = user.Active === 1 ? 'status-badge active' : 'status-badge inactive';
-
     let farmsHtml = '';
     if (userFarms.data.length > 0) {
         farmsHtml = userFarms.data.map(farm =>
-            `<li><i class="fas fa-tractor"></i> ${farm.Name} (ID: ${farm.ID})</li>`
+            `<li><i class="fas fa-tractor"></i> ${farm.Name}</li>`
         ).join('');
     } else {
         farmsHtml = '<li class="text-muted">Nenhuma fazenda vinculada</li>';
@@ -309,21 +300,6 @@ async function openUserModal(user) {
             <div class="detail-item full-width">
                 <label>Nome Completo</label>
                 <p>${user.Name} ${user.Surname}</p>
-            </div>
-            
-            <div class="detail-item">
-                <label>ID</label>
-                <p>${user.ID}</p>
-            </div>
-            
-            <div class="detail-item">
-                <label>Tipo</label>
-                <p><span class="type-badge">${typeName}</span></p>
-            </div>
-            
-            <div class="detail-item">
-                <label>Status</label>
-                <p><span class="${statusClass}">${statusName}</span></p>
             </div>
             
             <div class="detail-item full-width">
@@ -400,7 +376,6 @@ async function openFarmModal(farm) {
                             <span class="type-badge" style="font-size: 0.7rem;">${typeName}</span>
                         </div>
                     </div>
-                    <span style="color: var(--text-muted); font-size: 0.8rem;">ID: ${user.ID}</span>
                 </li>
             `;
         }).join('');
@@ -413,11 +388,6 @@ async function openFarmModal(farm) {
             <div class="detail-item full-width">
                 <label>Nome da Fazenda</label>
                 <p>${farm.Name}</p>
-            </div>
-            
-            <div class="detail-item">
-                <label>ID</label>
-                <p>${farm.ID}</p>
             </div>
             
             <div class="detail-item full-width">

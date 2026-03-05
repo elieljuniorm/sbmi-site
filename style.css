@@ -199,9 +199,12 @@ body {
 /* Content Area */
 .content-area {
     flex: 1;
+    display: flex;
     overflow-y: auto;
     padding: 24px;
     background-color: var(--bg-white-dark);
+    flex-direction: column;
+    align-items: center;
 }
 
 /* Loading Spinner */
@@ -222,6 +225,7 @@ body {
 .items-list {
     display: flex;
     flex-direction: column;
+    width: 90%;
 }
 
 /* Cards estilo tabela - mesmo para usuários e fazendas */
