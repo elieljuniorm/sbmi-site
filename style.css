@@ -8,7 +8,7 @@
 :root {
     /* Paleta refinada - tons suaves e profissionais */
     --bg-main: #F5F7FA;
-    --bg-white: #FFFFFF;
+    --bg-white: #fafafa;
     --bg-sidebar: #FFFFFF;
     --text-primary: #1A2B3C;
     --text-secondary: #4A5A6A;
@@ -127,8 +127,6 @@ body {
 .developer-logo {
     display: flex;
     justify-content: center;
-    opacity: 0.5;
-    transition: opacity 0.2s;
 }
 
 .developer-logo:hover {
