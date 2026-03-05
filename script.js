@@ -70,7 +70,7 @@ function getUsersByIds(userIds) {
 // Estado da aplicação
 let currentView = 'users';
 let currentPage = 1;
-const itemsPerPage = 9;
+const itemsPerPage = 10;
 let currentData = null;
 let totalPages = 1;
 
