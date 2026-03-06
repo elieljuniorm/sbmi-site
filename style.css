@@ -31,7 +31,7 @@
 body {
     font-family: 'Nunito Sans', sans-serif;
     color: var(--text-primary);
-    background-color: var(--bg-main);
+    background-color: var(--bg-white-dark);
     height: 100vh;
     overflow: hidden;
 }
@@ -624,6 +624,46 @@ body {
     margin: 0;
 }
 
+.localizacao-row {
+    display: flex;
+    gap: 16px;
+    margin: 16px 0;
+    grid-column: 1 / -1;
+}
+
+.localizacao-item {
+    flex: 1;
+}
+
+.localizacao-item.cidade {
+    flex: 2;
+}
+
+.localizacao-item.estado {
+    flex: 1;
+}
+
+.localizacao-item label {
+    display: block;
+    font-size: 0.75rem;
+    font-weight: 600;
+    color: var(--text-muted);
+    margin-bottom: 4px;
+    margin-left: 15px;
+    text-transform: uppercase;
+    letter-spacing: 0.3px;
+}
+
+.localizacao-item p {
+    font-size: 0.95rem;
+    color: var(--text-primary);
+    background-color: #ffffff;
+    padding: 10px 14px;
+    border-radius: 30px;
+    border: 1px solid var(--border-color-input);
+    margin: 0;
+}
+
 .detail-item ul {
     list-style: none;
     padding: 0;
@@ -658,6 +698,7 @@ body {
 
 .map-container {
     margin: 16px 0;
+    grid-column: 1 / -1;
 }
 
 .map-loading {
@@ -848,12 +889,12 @@ body {
     .nav-btn i {
         margin: 0;
     }
-    
+
     .add-admin-btn {
         justify-content: center;
         padding: 12px;
     }
-    
+
     .add-admin-btn i {
         margin: 0;
     }
@@ -861,7 +902,7 @@ body {
     .top-bar {
         padding: 0 16px;
     }
-    
+
     .search-container {
         width: 200px;
         margin: 0 10px;
@@ -874,8 +915,13 @@ body {
     .item-card {
         grid-template-columns: 2fr 1fr 1fr;
     }
-    
+
     .pagination-container {
+        flex-direction: column;
+        gap: 12px;
+    }
+
+    .localizacao-row {
         flex-direction: column;
         gap: 12px;
     }
@@ -885,7 +931,7 @@ body {
     .search-container {
         display: none;
     }
-    
+
     .item-card {
         grid-template-columns: 1fr;
         gap: 8px;

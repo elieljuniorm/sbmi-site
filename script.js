@@ -36,17 +36,17 @@ const mockData = {
     },
 
     farms: [
-        { ID: 55, Name: "Fazenda Santa Maria", City: "Ribeirão Preto", Latitude: -21.1775, Longitude: -47.8100, users: [100, 101] },
-        { ID: 56, Name: "Fazenda Boa Vista", City: "Araraquara", Latitude: -21.7942, Longitude: -48.1756, users: [100] },
-        { ID: 57, Name: "Sítio Esperança", City: "São Carlos", Latitude: -22.0175, Longitude: -47.8908, users: [101, 102] },
-        { ID: 58, Name: "Fazenda Santa Fé", City: "Ribeirão Preto", Latitude: -21.1500, Longitude: -47.8500, users: [102] },
-        { ID: 59, Name: "Fazenda Rio Claro", City: "Rio Claro", Latitude: -22.4108, Longitude: -47.5606, users: [102, 103] },
-        { ID: 60, Name: "Fazenda São José", City: "Uberaba", Latitude: -19.7472, Longitude: -47.9319, users: [103, 104] },
-        { ID: 61, Name: "Fazenda Paraíso", City: "Uberlândia", Latitude: -18.9186, Longitude: -48.2772, users: [104] },
-        { ID: 62, Name: "Fazenda Recanto", City: "Araguari", Latitude: -18.6472, Longitude: -48.1872, users: [104, 105] },
-        { ID: 63, Name: "Sítio das Palmeiras", City: "Londrina", Latitude: -23.3100, Longitude: -51.1628, users: [105] },
-        { ID: 64, Name: "Fazenda Campo Verde", City: "Cascavel", Latitude: -24.9558, Longitude: -53.4553, users: [106, 107] },
-        { ID: 65, Name: "Fazenda Sem Coordenada", City: "Cidade Teste", Latitude: null, Longitude: null, users: [107] }
+        { ID: 55, Name: "Fazenda Santa Maria", City: "Ribeirão Preto", State: "São Paulo", Latitude: -21.1775, Longitude: -47.8100, users: [100, 101] },
+        { ID: 56, Name: "Fazenda Boa Vista", City: "Araraquara", State: "São Paulo", Latitude: -21.7942, Longitude: -48.1756, users: [100] },
+        { ID: 57, Name: "Sítio Esperança", City: "São Carlos", State: "São Paulo", Latitude: -22.0175, Longitude: -47.8908, users: [101, 102] },
+        { ID: 58, Name: "Fazenda Santa Fé", City: "Ribeirão Preto", State: "São Paulo", Latitude: -21.1500, Longitude: -47.8500, users: [102] },
+        { ID: 59, Name: "Fazenda Rio Claro", City: "Rio Claro", State: "São Paulo", Latitude: -22.4108, Longitude: -47.5606, users: [102, 103] },
+        { ID: 60, Name: "Fazenda São José", City: "Uberaba", State: "Minas Gerais", Latitude: -19.7472, Longitude: -47.9319, users: [103, 104] },
+        { ID: 61, Name: "Fazenda Paraíso", City: "Uberlândia", State: "Minas Gerais", Latitude: -18.9186, Longitude: -48.2772, users: [104] },
+        { ID: 62, Name: "Fazenda Recanto", City: "Araguari", State: "Minas Gerais", Latitude: -18.6472, Longitude: -48.1872, users: [104, 105] },
+        { ID: 63, Name: "Sítio das Palmeiras", City: "Londrina", State: "Paraná", Latitude: -23.3100, Longitude: -51.1628, users: [105] },
+        { ID: 64, Name: "Fazenda Campo Verde", City: "Cascavel", State: "Paraná", Latitude: -24.9558, Longitude: -53.4553, users: [106, 107] },
+        { ID: 65, Name: "Fazenda Sem Coordenada", City: "Cidade Teste", State: "Estado Teste", Latitude: null, Longitude: null, users: [107] }
     ],
 
     userFarms: {
@@ -97,12 +97,12 @@ function setupEventListeners() {
             currentView = btn.dataset.view;
             currentPage = 1;
             updateScreenTitle();
-            
+
             const searchInput = document.getElementById('searchInput');
             if (searchInput) {
                 searchInput.value = '';
             }
-            
+
             isSearching = false;
             filteredData = null;
             loadData();
@@ -144,7 +144,7 @@ async function loadData() {
         renderSearchedItems();
         return;
     }
-    
+
     try {
         const response = await fetchData(currentView);
 
@@ -237,9 +237,9 @@ function createFarmCard(farm) {
 function renderPagination() {
     pagination.innerHTML = '';
 
-    const dataSource = isSearching ? filteredData : 
+    const dataSource = isSearching ? filteredData :
         (currentView === 'users' ? mockData.users.data : mockData.farms);
-    
+
     const totalItems = dataSource?.length || 0;
     totalPages = Math.ceil(totalItems / itemsPerPage);
 
@@ -348,7 +348,7 @@ async function openFarmModal(farm) {
 
     if (hasCoordinates) {
         mapHtml = `
-            <div class="map-container">
+            <div class="map-container" style="margin-top: 16px;">
                 <div id="farmMap" class="modal-map"></div>
                 <div class="coordinates-info">
                     <div class="coord-item">
@@ -364,7 +364,7 @@ async function openFarmModal(farm) {
         `;
     } else {
         mapHtml = `
-            <div class="map-container">
+            <div class="map-container" style="margin-top: 16px;">
                 <div class="map-loading">
                     <i class="fas fa-map-marked-alt" style="font-size: 2rem; color: var(--text-muted); margin-right: 8px;"></i>
                     <span>Coordenadas não disponíveis</span>
@@ -403,9 +403,16 @@ async function openFarmModal(farm) {
                 <p>${farm.Name}</p>
             </div>
             
-            <div class="detail-item full-width">
-                <label>Cidade</label>
-                <p>${farm.City}</p>
+            <div class="detail-grid">
+                <div class="detail-item full-width">
+                    <label>Cidade</label>
+                    <p>${farm.City}</p>
+                </div>
+                
+                <div class="detail-item full-width">
+                    <label>Estado</label>
+                    <p>${farm.State}</p>
+                </div>
             </div>
             
             ${mapHtml}
@@ -481,14 +488,14 @@ function closeAddAdminModal() {
 
 function handleAddAdmin(event) {
     event.preventDefault();
-    
+
     const name = document.getElementById('adminName').value;
     const email = document.getElementById('adminEmail').value;
-    
+
     console.log('Adicionar admin:', { name, email });
-    
+
     showLoading(true);
-    
+
     setTimeout(() => {
         showLoading(false);
         alert('Administrador adicionado com sucesso!');
@@ -498,11 +505,11 @@ function handleAddAdmin(event) {
 
 function handleSearch() {
     const searchTerm = document.getElementById('searchInput').value.toLowerCase().trim();
-    
+
     if (searchTimeout) {
         clearTimeout(searchTimeout);
     }
-    
+
     searchTimeout = setTimeout(() => {
         performSearch(searchTerm);
     }, 300);
@@ -516,9 +523,9 @@ function performSearch(searchTerm) {
         loadData();
         return;
     }
-    
+
     isSearching = true;
-    
+
     if (currentView === 'users') {
         const allUsers = mockData.users.data;
         filteredData = allUsers.filter(user => {
@@ -527,11 +534,11 @@ function performSearch(searchTerm) {
             return fullName.includes(searchTerm) || email.includes(searchTerm);
         });
     } else {
-        filteredData = mockData.farms.filter(farm => 
+        filteredData = mockData.farms.filter(farm =>
             farm.Name.toLowerCase().includes(searchTerm)
         );
     }
-    
+
     currentPage = 1;
     renderSearchedItems();
     updateItemsCounter();
@@ -544,16 +551,16 @@ function renderSearchedItems() {
         updateItemsCounter();
         return;
     }
-    
+
     const start = (currentPage - 1) * itemsPerPage;
     const end = start + itemsPerPage;
     const paginatedData = filteredData.slice(start, end);
-    
+
     itemsList.innerHTML = '';
-    
+
     const header = document.createElement('div');
     header.className = 'list-header';
-    
+
     if (currentView === 'users') {
         header.innerHTML = `
             <span>NOME</span>
@@ -562,12 +569,12 @@ function renderSearchedItems() {
     } else {
         header.innerHTML = `
             <span>FAZENDA</span>
-            <span>CIDADE</span>
+            <span>LOCALIZAÇÃO</span>
             <span>COORDENADAS</span>
         `;
     }
     itemsList.appendChild(header);
-    
+
     paginatedData.forEach(item => {
         if (currentView === 'users') {
             itemsList.appendChild(createUserCard(item));
@@ -575,7 +582,7 @@ function renderSearchedItems() {
             itemsList.appendChild(createFarmCard(item));
         }
     });
-    
+
     renderPagination();
     updateItemsCounter();
 }
@@ -583,14 +590,14 @@ function renderSearchedItems() {
 function updateItemsCounter() {
     const counterElement = document.getElementById('itemsCounter');
     if (!counterElement) return;
-    
-    const dataSource = isSearching ? filteredData : 
+
+    const dataSource = isSearching ? filteredData :
         (currentView === 'users' ? mockData.users.data : mockData.farms);
-    
+
     const totalItems = dataSource?.length || 0;
     const start = totalItems === 0 ? 0 : ((currentPage - 1) * itemsPerPage) + 1;
     const end = Math.min(currentPage * itemsPerPage, totalItems);
-    
+
     if (totalItems === 0) {
         counterElement.textContent = 'Nenhum item encontrado';
     } else {
