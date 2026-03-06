@@ -141,7 +141,7 @@ document.addEventListener('DOMContentLoaded', function() {
                 // Salvar credenciais se solicitado
                 saveCredentials(email, password);
 
-                // Simular redirecionamento após 2 segundos
+                // Simular redirecionamento
                 setTimeout(() => {
                     window.location.href = '/'; // Rota base após login
                 }, 1000);
