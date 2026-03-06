@@ -1,4 +1,3 @@
-// Dados simulados seguindo a estrutura exata da API
 const mockData = {
     users: {
         current_page: 1,
@@ -62,19 +61,19 @@ const mockData = {
     }
 };
 
-// Função auxiliar para encontrar usuários por IDs
 function getUsersByIds(userIds) {
     return mockData.users.data.filter(user => userIds.includes(user.ID));
 }
 
-// Estado da aplicação
 let currentView = 'users';
 let currentPage = 1;
 const itemsPerPage = 10;
 let currentData = null;
 let totalPages = 1;
+let searchTimeout = null;
+let filteredData = null;
+let isSearching = false;
 
-// Elementos DOM
 const itemsList = document.getElementById('itemsList');
 const pagination = document.getElementById('pagination');
 const loadingSpinner = document.getElementById('loadingSpinner');
@@ -82,10 +81,8 @@ const modal = document.getElementById('detailsModal');
 const modalBody = document.getElementById('modalBody');
 const modalTitle = document.getElementById('modalTitle');
 
-// Variável global para controlar o mapa atual
 let currentMap = null;
 
-// Inicialização
 document.addEventListener('DOMContentLoaded', () => {
     loadData();
     setupEventListeners();
@@ -100,6 +97,14 @@ function setupEventListeners() {
             currentView = btn.dataset.view;
             currentPage = 1;
             updateScreenTitle();
+            
+            const searchInput = document.getElementById('searchInput');
+            if (searchInput) {
+                searchInput.value = '';
+            }
+            
+            isSearching = false;
+            filteredData = null;
             loadData();
         });
     });
@@ -112,7 +117,6 @@ function updateScreenTitle() {
     }
 }
 
-// Simula chamadas de API com a estrutura real
 async function fetchData(view) {
     showLoading(true);
     await new Promise(resolve => setTimeout(resolve, 500));
@@ -136,6 +140,11 @@ async function fetchData(view) {
 }
 
 async function loadData() {
+    if (isSearching) {
+        renderSearchedItems();
+        return;
+    }
+    
     try {
         const response = await fetchData(currentView);
 
@@ -149,6 +158,7 @@ async function loadData() {
 
         renderItems();
         renderPagination();
+        updateItemsCounter();
     } catch (error) {
         console.error('Erro ao carregar dados:', error);
         itemsList.innerHTML = '<p class="error-message">Erro ao carregar dados</p>';
@@ -163,7 +173,6 @@ function renderItems() {
         return;
     }
 
-    // Adiciona cabeçalho da lista para ambas as visualizações
     const header = document.createElement('div');
     header.className = 'list-header';
 
@@ -228,6 +237,12 @@ function createFarmCard(farm) {
 function renderPagination() {
     pagination.innerHTML = '';
 
+    const dataSource = isSearching ? filteredData : 
+        (currentView === 'users' ? mockData.users.data : mockData.farms);
+    
+    const totalItems = dataSource?.length || 0;
+    totalPages = Math.ceil(totalItems / itemsPerPage);
+
     if (totalPages <= 1) return;
 
     const prevBtn = document.createElement('button');
@@ -277,7 +292,6 @@ function showLoading(show) {
     loadingSpinner.style.display = show ? 'flex' : 'none';
 }
 
-// Modal Functions
 async function openUserModal(user) {
     showLoading(true);
 
@@ -323,7 +337,6 @@ async function openUserModal(user) {
 async function openFarmModal(farm) {
     modalTitle.textContent = 'Detalhes da Fazenda';
 
-    // Busca todos os usuários vinculados a esta fazenda
     const linkedUsers = getUsersByIds(farm.users || []);
 
     const hasCoordinates = farm.Latitude && farm.Longitude &&
@@ -457,16 +470,152 @@ function closeModal() {
     }
 }
 
-// Fecha modal ao clicar fora
+function openAddAdminModal() {
+    document.getElementById('addAdminModal').classList.add('show');
+}
+
+function closeAddAdminModal() {
+    document.getElementById('addAdminModal').classList.remove('show');
+    document.getElementById('addAdminForm').reset();
+}
+
+function handleAddAdmin(event) {
+    event.preventDefault();
+    
+    const name = document.getElementById('adminName').value;
+    const email = document.getElementById('adminEmail').value;
+    
+    console.log('Adicionar admin:', { name, email });
+    
+    showLoading(true);
+    
+    setTimeout(() => {
+        showLoading(false);
+        alert('Administrador adicionado com sucesso!');
+        closeAddAdminModal();
+    }, 1000);
+}
+
+function handleSearch() {
+    const searchTerm = document.getElementById('searchInput').value.toLowerCase().trim();
+    
+    if (searchTimeout) {
+        clearTimeout(searchTimeout);
+    }
+    
+    searchTimeout = setTimeout(() => {
+        performSearch(searchTerm);
+    }, 300);
+}
+
+function performSearch(searchTerm) {
+    if (searchTerm === '') {
+        isSearching = false;
+        filteredData = null;
+        currentPage = 1;
+        loadData();
+        return;
+    }
+    
+    isSearching = true;
+    
+    if (currentView === 'users') {
+        const allUsers = mockData.users.data;
+        filteredData = allUsers.filter(user => {
+            const fullName = `${user.Name} ${user.Surname}`.toLowerCase();
+            const email = user.Email.toLowerCase();
+            return fullName.includes(searchTerm) || email.includes(searchTerm);
+        });
+    } else {
+        filteredData = mockData.farms.filter(farm => 
+            farm.Name.toLowerCase().includes(searchTerm)
+        );
+    }
+    
+    currentPage = 1;
+    renderSearchedItems();
+    updateItemsCounter();
+}
+
+function renderSearchedItems() {
+    if (!filteredData || filteredData.length === 0) {
+        itemsList.innerHTML = '<p class="empty-message">Nenhum resultado encontrado</p>';
+        renderPagination();
+        updateItemsCounter();
+        return;
+    }
+    
+    const start = (currentPage - 1) * itemsPerPage;
+    const end = start + itemsPerPage;
+    const paginatedData = filteredData.slice(start, end);
+    
+    itemsList.innerHTML = '';
+    
+    const header = document.createElement('div');
+    header.className = 'list-header';
+    
+    if (currentView === 'users') {
+        header.innerHTML = `
+            <span>NOME</span>
+            <span>EMAIL</span>
+        `;
+    } else {
+        header.innerHTML = `
+            <span>FAZENDA</span>
+            <span>CIDADE</span>
+            <span>COORDENADAS</span>
+        `;
+    }
+    itemsList.appendChild(header);
+    
+    paginatedData.forEach(item => {
+        if (currentView === 'users') {
+            itemsList.appendChild(createUserCard(item));
+        } else {
+            itemsList.appendChild(createFarmCard(item));
+        }
+    });
+    
+    renderPagination();
+    updateItemsCounter();
+}
+
+function updateItemsCounter() {
+    const counterElement = document.getElementById('itemsCounter');
+    if (!counterElement) return;
+    
+    const dataSource = isSearching ? filteredData : 
+        (currentView === 'users' ? mockData.users.data : mockData.farms);
+    
+    const totalItems = dataSource?.length || 0;
+    const start = totalItems === 0 ? 0 : ((currentPage - 1) * itemsPerPage) + 1;
+    const end = Math.min(currentPage * itemsPerPage, totalItems);
+    
+    if (totalItems === 0) {
+        counterElement.textContent = 'Nenhum item encontrado';
+    } else {
+        counterElement.textContent = `Exibindo ${start} a ${end} de ${totalItems} itens`;
+    }
+}
+
 window.onclick = (event) => {
     if (event.target === modal) {
         closeModal();
     }
+    const adminModal = document.getElementById('addAdminModal');
+    if (event.target === adminModal) {
+        closeAddAdminModal();
+    }
 };
 
-// Fecha modal com tecla ESC
 document.addEventListener('keydown', (event) => {
-    if (event.key === 'Escape' && modal.classList.contains('show')) {
-        closeModal();
+    if (event.key === 'Escape') {
+        if (modal.classList.contains('show')) {
+            closeModal();
+        }
+        const adminModal = document.getElementById('addAdminModal');
+        if (adminModal.classList.contains('show')) {
+            closeAddAdminModal();
+        }
     }
 });

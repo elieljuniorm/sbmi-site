@@ -32,6 +32,14 @@
                         <span>Fazendas</span>
                     </button>
                 </nav>
+                
+                <!-- Botão para adicionar admin -->
+                <div class="sidebar-add-admin">
+                    <button class="add-admin-btn" onclick="openAddAdminModal()">
+                        <i class="fas fa-user-plus"></i>
+                        <span>Adicionar Admin</span>
+                    </button>
+                </div>
             </div>
             <div class="sidebar-bottom">
                 <div class="developer-logo">
@@ -47,6 +55,19 @@
                 <div class="current-screen">
                     <h1 id="screen-title">Usuários</h1>
                 </div>
+                
+                <!-- Campo de pesquisa no meio da top bar -->
+                <div class="search-container">
+                    <i class="fas fa-search search-icon"></i>
+                    <input 
+                        type="text" 
+                        class="search-input" 
+                        id="searchInput" 
+                        placeholder="Pesquisar por nome ou email..."
+                        oninput="handleSearch()"
+                    >
+                </div>
+                
                 <div class="user-info">
                     <span class="user-name" id="userName">João Silva</span>
                     <div class="user-avatar">
@@ -64,9 +85,15 @@
 
                 <!-- Lista de Itens -->
                 <div class="items-list" id="itemsList"></div>
-
-                <!-- Paginação -->
-                <div class="pagination" id="pagination"></div>
+                
+                <!-- Container para paginação e contador -->
+                <div class="pagination-container">
+                    <!-- Paginação -->
+                    <div class="pagination" id="pagination"></div>
+                    
+                    <!-- Contador de itens -->
+                    <div class="items-counter" id="itemsCounter"></div>
+                </div>
             </div>
         </main>
     </div>
@@ -82,6 +109,52 @@
             </div>
             <div class="modal-body" id="modalBody">
                 <!-- Conteúdo dinâmico -->
+            </div>
+        </div>
+    </div>
+
+    <!-- Modal para adicionar Admin -->
+    <div class="modal" id="addAdminModal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h2>Adicionar Administrador</h2>
+                <button class="close-modal" onclick="closeAddAdminModal()">
+                    <i class="fas fa-times"></i>
+                </button>
+            </div>
+            <div class="modal-body">
+                <form id="addAdminForm" onsubmit="handleAddAdmin(event)">
+                    <div class="form-group">
+                        <label for="adminName">Nome completo</label>
+                        <input 
+                            type="text" 
+                            id="adminName" 
+                            class="form-input" 
+                            placeholder="Digite o nome completo"
+                            required
+                        >
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="adminEmail">E-mail</label>
+                        <input 
+                            type="email" 
+                            id="adminEmail" 
+                            class="form-input" 
+                            placeholder="Digite o e-mail"
+                            required
+                        >
+                    </div>
+                    
+                    <div class="form-actions">
+                        <button type="button" class="btn-secondary" onclick="closeAddAdminModal()">
+                            Cancelar
+                        </button>
+                        <button type="submit" class="btn-primary">
+                            Adicionar
+                        </button>
+                    </div>
+                </form>
             </div>
         </div>
     </div>
